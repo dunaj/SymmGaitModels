@@ -9,7 +9,7 @@
 
 namespace Engine {
 
-	FFTCol::FFTCol(const VecD & Xin) {
+	FFTCol::FFTCol(const VecF & Xin) {
 		int N = Xin.size();
 		Xreal.resize(N, 0.0);
 		Ximag.resize(N, 0.0);
@@ -97,7 +97,7 @@ namespace Engine {
 		return true;
 	}
 
-	bool FFTCol::equalsVec(const VecD & real, const VecD& imag) {
+	bool FFTCol::equalsVec(const VecF & real, const VecF& imag) {
 		if ( size() != real.size() || size() != imag.size() )
 			return false;
 

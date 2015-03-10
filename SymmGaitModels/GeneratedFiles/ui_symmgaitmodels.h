@@ -13,8 +13,12 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QWidget>
 #include "glwidget.h"
 
@@ -24,19 +28,43 @@ class Ui_SymmGaitModelsClass
 {
 public:
     QPushButton *pushButton;
-    GLWidget *openGLWidget;
+    GLWidget *OpenGLWidget;
+    QLineEdit *MarkerNrLabelEdit;
+    QLabel *MarkerLabel;
+    QGroupBox *CoordRadioGroupBox;
+    QRadioButton *XRadioButton;
+    QRadioButton *YRadioButton;
+    QRadioButton *ZRadioButton;
 
     void setupUi(QWidget *SymmGaitModelsClass)
     {
         if (SymmGaitModelsClass->objectName().isEmpty())
             SymmGaitModelsClass->setObjectName(QStringLiteral("SymmGaitModelsClass"));
-        SymmGaitModelsClass->resize(673, 564);
+        SymmGaitModelsClass->resize(729, 564);
         pushButton = new QPushButton(SymmGaitModelsClass);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(10, 80, 75, 23));
-        openGLWidget = new GLWidget(SymmGaitModelsClass);
-        openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
-        openGLWidget->setGeometry(QRect(100, 10, 560, 460));
+        pushButton->setGeometry(QRect(20, 510, 75, 23));
+        OpenGLWidget = new GLWidget(SymmGaitModelsClass);
+        OpenGLWidget->setObjectName(QStringLiteral("OpenGLWidget"));
+        OpenGLWidget->setGeometry(QRect(160, 10, 560, 460));
+        MarkerNrLabelEdit = new QLineEdit(SymmGaitModelsClass);
+        MarkerNrLabelEdit->setObjectName(QStringLiteral("MarkerNrLabelEdit"));
+        MarkerNrLabelEdit->setGeometry(QRect(10, 30, 111, 20));
+        MarkerLabel = new QLabel(SymmGaitModelsClass);
+        MarkerLabel->setObjectName(QStringLiteral("MarkerLabel"));
+        MarkerLabel->setGeometry(QRect(10, 10, 111, 20));
+        CoordRadioGroupBox = new QGroupBox(SymmGaitModelsClass);
+        CoordRadioGroupBox->setObjectName(QStringLiteral("CoordRadioGroupBox"));
+        CoordRadioGroupBox->setGeometry(QRect(10, 60, 121, 61));
+        XRadioButton = new QRadioButton(CoordRadioGroupBox);
+        XRadioButton->setObjectName(QStringLiteral("XRadioButton"));
+        XRadioButton->setGeometry(QRect(10, 20, 31, 17));
+        YRadioButton = new QRadioButton(CoordRadioGroupBox);
+        YRadioButton->setObjectName(QStringLiteral("YRadioButton"));
+        YRadioButton->setGeometry(QRect(50, 20, 31, 17));
+        ZRadioButton = new QRadioButton(CoordRadioGroupBox);
+        ZRadioButton->setObjectName(QStringLiteral("ZRadioButton"));
+        ZRadioButton->setGeometry(QRect(90, 20, 31, 17));
 
         retranslateUi(SymmGaitModelsClass);
 
@@ -47,6 +75,11 @@ public:
     {
         SymmGaitModelsClass->setWindowTitle(QApplication::translate("SymmGaitModelsClass", "SymmGaitModels", 0));
         pushButton->setText(QApplication::translate("SymmGaitModelsClass", "Wci\305\233nij!", 0));
+        MarkerLabel->setText(QApplication::translate("SymmGaitModelsClass", "Marker Number (1-26)", 0));
+        CoordRadioGroupBox->setTitle(QApplication::translate("SymmGaitModelsClass", "Coordinate", 0));
+        XRadioButton->setText(QApplication::translate("SymmGaitModelsClass", "X", 0));
+        YRadioButton->setText(QApplication::translate("SymmGaitModelsClass", "Y", 0));
+        ZRadioButton->setText(QApplication::translate("SymmGaitModelsClass", "Z", 0));
     } // retranslateUi
 
 };

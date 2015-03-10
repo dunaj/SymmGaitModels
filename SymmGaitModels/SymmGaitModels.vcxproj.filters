@@ -126,5 +126,8 @@
     <ClInclude Include="Engine\SegmentationCriteria\SegmentationCriterion.h">
       <Filter>Header Files\Engine\SegmentationCriteria</Filter>
     </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

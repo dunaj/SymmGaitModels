@@ -8,24 +8,25 @@
 #include "Matrix.h"
 #include <fstream>
 namespace Engine {
-Matrix::Matrix(const char * fileN, int nC, int nV)
+Matrix::Matrix(const char * fileName, int nC, int nR)
 {
 	this->nCol=nC;
-	this->nVer = nV;
+	this->nRow = nR;
 	std::fstream file;
-	file.open(fileN, std::ios::in);
+	file.open(fileName, std::ios::in);
 	if (file.is_open()) {
-		this->m.resize(nV);
-		for (int i = 0; i<nV; ++i) {
-			this->m[i].resize(nC);
-			for (int j = 0; j < nC; ++j ) {
-				file>>this->m[i].at(j);
+		this->m.resize(nC);
+		for (int col = 0; col < nC; ++col)
+			m[col].resize(nR);
+		for (int row = 0; row < nR; ++row) {
+			for (int col = 0; col<nC; ++col) {
+				file>>this->m[col].at(row);
 			}
 		}
 		file.close();
 	}
 	else {
-		std::cout<<"Cannot open file "<<fileN<<"!!!"<<std::endl;
+		std::cout<<"Cannot open file "<<fileName<<"!!!"<<std::endl;
 	}
 }
 
@@ -33,7 +34,7 @@ std::ostream& operator<<(std::ostream& o, const Matrix &mat)
 {
 	o.setf(std::ios::scientific, std::ios::floatfield);
 	o.precision(7);
-	for (int i = 0; i<mat.nVer; ++i) {
+	for (int i = 0; i<mat.nRow; ++i) {
 		for (int j = 0; j < mat.nCol; ++j ) {
 			o<<mat(i,j)<<"\t";
 		}

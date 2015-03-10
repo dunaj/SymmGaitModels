@@ -7,7 +7,10 @@
 #include <qopenglshaderprogram.h>
 #include <qopenglbuffer.h>
 
+#include "Engine\Matrix.h"
+#include "Engine\Consts.h"
 #include "PlotColor.h"
+#include <iostream>
 
 class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -15,6 +18,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 public:
 	GLWidget(QWidget *parent);
 	~GLWidget() {};
+
 protected:
 	struct Point;
 
@@ -35,9 +39,12 @@ private:
 	GLint coord2d;
 	GLuint positionBufferObject;
 	GLuint vbo;
-
-
 	GLint plotColor;
+	
+	// MDS MAtrix
+	Engine::Matrix *mds;
+
+	// OTHER
 	GLfloat rotatex;
 	GLfloat rotatey;
 	QPoint mousePos;
@@ -52,28 +59,27 @@ private:
 	 */
 	void drawPoints2D(float pSize = 4.0);
 
+	/**
+	 * Method used for preparing data to 2D plot
+	 */
+	void prepareData2D();
+
 	const char *vertexShadSrc = // Vertex shader src
 		"uniform sampler2D texture; "
 		"attribute vec4 coord2d; \n"
 		"uniform float offsetX; \n"
-	    "uniform float scaleX; \n"
+		"uniform float scaleX; \n"
+		"uniform float scaleY;"
 		"void main() \n"
 		"{\n"
 		" float x = (coord2d[0]-offsetX)/scaleX; \n "
-		" float y = coord2d[1] / 15; //texture2D(texture, vec2(x, coord2d[1])).r; \n "
+		" float y = coord2d[1] / scaleY; //texture2D(texture, vec2(x, coord2d[1])).r; \n "
 		" gl_Position = vec4(x, y, 0.0, 1.0); \n"
 		"}\n";
 	const char *fragmentShadSrc = // Fragment Shader src
 		"uniform vec4 f_color; "
 		"void main(void) {        "
 		"gl_FragColor = f_color; " 
-		//"gl_FragColor[0] = 1.0; "
-		//"gl_FragColor[1] = 0.0; "
-		//"gl_FragColor[2] = 0.0; "
-		////"if (mod(gl_FragCoord.x, 10.0) > 5) "
-		//"gl_FragColor[3] = 1;"
-		////"else "
-		////	"gl_FragColor[3] = 0.4;"
 		"}";
 };
 

@@ -17,15 +17,15 @@
 
 namespace Engine {
 
-typedef std::vector<double> VecD;
+typedef std::vector<float> VecF;
 /**
  * Class which represents a Column of Fourier Transform
  * Has tables of Real and Imaginary part
  */
 class FFTCol {
 private:
-	VecD Xreal;
-	VecD Ximag;
+	VecF Xreal;
+	VecF Ximag;
 
 public:
 	FFTCol() {
@@ -34,12 +34,12 @@ public:
 	/**
 	 * Constructor which input is column of raw, MDS or R/L-MDS matrix
 	 */
-	FFTCol(const VecD & Xin);
+	FFTCol(const VecF & Xin);
 
-	VecD getReal() const {
+	VecF getReal() const {
 		return Xreal;
 	}
-	VecD getImag() const {
+	VecF getImag() const {
 		return Ximag;
 	}
 	void removeRedundantStripes();
@@ -64,7 +64,7 @@ public:
 	 * function checking if the FFTCol is equal to preasumed
 	 * std vectors with real and imag part
 	 */
-	bool equalsVec (const VecD & real, const VecD &imag);
+	bool equalsVec (const VecF & real, const VecF &imag);
 };
 
 class FFTMat {

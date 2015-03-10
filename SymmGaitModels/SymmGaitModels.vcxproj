@@ -135,6 +135,7 @@
     <ClInclude Include="Engine\SegmentationCriteria\SpineBalanceSC.h" />
     <ClInclude Include="Engine\SymmetricalModels.h" />
     <ClInclude Include="GeneratedFiles\ui_symmgaitmodels.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="PlotColor.h" />
     <CustomBuild Include="GLWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

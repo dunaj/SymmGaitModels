@@ -7,6 +7,8 @@ struct GLWidget::Point {
 
 GLWidget::GLWidget(QWidget * parent = 0) : QOpenGLWidget(parent)
 {
+	this->mds = new Engine::Matrix("Resources/dpm/DPM_1_f003BMEDc.txt",
+		Engine::MDS_COL_NO, Engine::MDS_ROW_NO);
 	rotatex = 0.0;
 	rotatey = 0.0;
 }
@@ -17,17 +19,6 @@ void GLWidget::initializeGL() {
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	plotSize = 100;
-	plot = new Point[plotSize];
-	for (int i = 0; i < plotSize; ++i) {
-		float x = i;//(i-50)/50.0;
-		plot[i].x = x;
-		plot[i].y = 15 * sin(x/8* 3.14);
-	}
-	glBufferData(GL_ARRAY_BUFFER, plotSize * sizeof Point, plot, GL_STATIC_DRAW);
 
 	vertexShad = new QOpenGLShader(QOpenGLShader::Vertex);
 	fragmentShad = new QOpenGLShader(QOpenGLShader::Fragment);
@@ -47,6 +38,7 @@ void GLWidget::initializeGL() {
 }
 
 void GLWidget::paintGL() {
+	prepareData2D();
 	paintPlot2D();
 }
 
@@ -68,7 +60,7 @@ void GLWidget::paintPlot2D() {
 	program.setAttributeValue("coord2d", coord2d);
 	program.setUniformValue("offsetX", GLfloat(plotSize/2));
 	program.setUniformValue("scaleX", GLfloat(plotSize / 2));
-	program.setUniformValue("scaleY", GLfloat(15.0));
+	program.setUniformValue("scaleY", GLfloat(1000.0));
 	// attributes to Fragment Shad
 	program.setUniformValueArray("f_color", PlotColor::RED, 1, 4);
 
@@ -99,4 +91,18 @@ void GLWidget::paintPlot2D() {
 void GLWidget::drawPoints2D(float pSize) {
 	glPointSize(pSize);
 	glDrawArrays(GL_POINTS, 0, 100);
+}
+
+void GLWidget::prepareData2D() {
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	plotSize = 100;
+	Point xplot[100];// = new Point[plotSize];
+	for (int i = 0; i < plotSize; ++i) {
+		//float x = i;//(i-50)/50.0;
+		xplot[i].x = GLfloat(i);
+		xplot[i].y = (*mds)(3, i);
+		printf("%d: %f\n",i, (*mds)(3, i));
+	}
+	glBufferData(GL_ARRAY_BUFFER, plotSize * sizeof Point, xplot, GL_STATIC_DRAW);
 }

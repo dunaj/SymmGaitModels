@@ -15,7 +15,7 @@ namespace Engine {
 /**
  * Kolumna jest reprezentowana przez wektor liczb zmiennoprzecinkowych
  */
-typedef std::vector<double> Column;
+typedef std::vector<float> Column;
 
 /**
  * Klasa reprezentujaca macierz
@@ -28,23 +28,25 @@ private:
 	///liczba kolumn
 	int nCol;
 	///liczba wierszy
-	int nVer;
+	int nRow;
 
 public:
+	/**
+	 * Default Ctor
+	 */
+	Matrix() {};
 	/**
 	 * Konstruktor tworzacy macierz na podstawie pliku txt
 	 * ktory przekazemy
 	 */
-	Matrix(const char * nazwa_pliku, int nC, int nV);
+	Matrix(const char * nazwa_pliku, int nC, int nR);
 
 	/**
-	 * przeci¹¿ony operator()
-	 *
-	 * zapewnia dotarcie do danego elementu macierzy
+	 * overloaded operator()
+	 * gets an element from the column and row
 	 */
-	const double & operator()(int kol, int wiersz) const
-	{
-		return m[kol].at(wiersz);
+	const float & operator()(int col, int row) const {
+		return m[col].at(row);
 	}
 
 	Column getColumn(int index) const {
