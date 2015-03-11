@@ -1,7 +1,6 @@
 #ifndef GLWIDGET__H_
 #define GLWIDGET__H_
 
-//#include <GL\glew.h>
 #include <qopenglfunctions.h>
 #include <qopenglwidget.h>
 #include <qopenglshaderprogram.h>
@@ -18,8 +17,16 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 	Q_OBJECT
 public:
 	GLWidget(QWidget *parent);
-	~GLWidget() {};
+	~GLWidget();
 
+	/**
+	 * sets the column which user wants to be painted
+	 * basing on data from Line Edit and Radio Buttons
+	 * from GUI
+	 * @param markerNr - marker number (from 1 to 26)
+	 * @param coord - 1=x, 2=y, 3=z
+	 */
+	void setPaintedColumn(int markerNr, int coord);
 protected:
 	struct Point;
 
@@ -41,7 +48,10 @@ private:
 	GLuint positionBufferObject;
 	GLuint vbo;
 	GLint plotColor;
-	
+	float scaleY;
+	float offsetY;
+	int paintedColumn;
+
 	// MDS MAtrix
 	Engine::Matrix *mds;
 
@@ -73,6 +83,13 @@ private:
 	 * Writing matrix to file
 	 */
 	void writeMatToFile(const char * fileName);
+
+	/**
+	 * Finding a proper scale and offset to make plot visible
+	 */
+	void findScaleAndOffset();
+
+	// CONSTANTS
 	const char *vertexShadSrc = // Vertex shader src
 		"uniform sampler2D texture; "
 		"attribute vec4 coord2d; \n"

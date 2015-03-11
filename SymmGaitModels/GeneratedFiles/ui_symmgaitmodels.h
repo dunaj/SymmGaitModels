@@ -27,9 +27,9 @@ QT_BEGIN_NAMESPACE
 class Ui_SymmGaitModelsClass
 {
 public:
-    QPushButton *pushButton;
+    QPushButton *RepaintButton;
     GLWidget *OpenGLWidget;
-    QLineEdit *MarkerNrLabelEdit;
+    QLineEdit *MarkerNrLineEdit;
     QLabel *MarkerLabel;
     QGroupBox *CoordRadioGroupBox;
     QRadioButton *XRadioButton;
@@ -41,15 +41,15 @@ public:
         if (SymmGaitModelsClass->objectName().isEmpty())
             SymmGaitModelsClass->setObjectName(QStringLiteral("SymmGaitModelsClass"));
         SymmGaitModelsClass->resize(729, 564);
-        pushButton = new QPushButton(SymmGaitModelsClass);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(20, 510, 75, 23));
+        RepaintButton = new QPushButton(SymmGaitModelsClass);
+        RepaintButton->setObjectName(QStringLiteral("RepaintButton"));
+        RepaintButton->setGeometry(QRect(20, 510, 75, 23));
         OpenGLWidget = new GLWidget(SymmGaitModelsClass);
         OpenGLWidget->setObjectName(QStringLiteral("OpenGLWidget"));
         OpenGLWidget->setGeometry(QRect(160, 10, 560, 460));
-        MarkerNrLabelEdit = new QLineEdit(SymmGaitModelsClass);
-        MarkerNrLabelEdit->setObjectName(QStringLiteral("MarkerNrLabelEdit"));
-        MarkerNrLabelEdit->setGeometry(QRect(10, 30, 111, 20));
+        MarkerNrLineEdit = new QLineEdit(SymmGaitModelsClass);
+        MarkerNrLineEdit->setObjectName(QStringLiteral("MarkerNrLineEdit"));
+        MarkerNrLineEdit->setGeometry(QRect(10, 30, 111, 20));
         MarkerLabel = new QLabel(SymmGaitModelsClass);
         MarkerLabel->setObjectName(QStringLiteral("MarkerLabel"));
         MarkerLabel->setGeometry(QRect(10, 10, 111, 20));
@@ -74,7 +74,7 @@ public:
     void retranslateUi(QWidget *SymmGaitModelsClass)
     {
         SymmGaitModelsClass->setWindowTitle(QApplication::translate("SymmGaitModelsClass", "SymmGaitModels", 0));
-        pushButton->setText(QApplication::translate("SymmGaitModelsClass", "Wci\305\233nij!", 0));
+        RepaintButton->setText(QApplication::translate("SymmGaitModelsClass", "Repaint", 0));
         MarkerLabel->setText(QApplication::translate("SymmGaitModelsClass", "Marker Number (1-26)", 0));
         CoordRadioGroupBox->setTitle(QApplication::translate("SymmGaitModelsClass", "Coordinate", 0));
         XRadioButton->setText(QApplication::translate("SymmGaitModelsClass", "X", 0));

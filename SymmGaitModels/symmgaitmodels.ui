@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>SymmGaitModels</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="RepaintButton">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Wciśnij!</string>
+    <string>Repaint</string>
    </property>
   </widget>
   <widget class="GLWidget" name="OpenGLWidget">
@@ -36,7 +36,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="MarkerNrLabelEdit">
+  <widget class="QLineEdit" name="MarkerNrLineEdit">
    <property name="geometry">
     <rect>
      <x>10</x>
