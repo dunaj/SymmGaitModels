@@ -45,12 +45,12 @@ public:
 	 * overloaded operator()
 	 * gets an element from the column and row
 	 */
-	const float & operator()(int col, int row) const {
-		return m[col].at(row);
+	const float & operator()(int nCol, int nRow) const {
+		return m[nCol].at(nRow);
 	}
 
-	Column getColumn(int index) const {
-		return m[index];
+	Column getColumn(int nCol) const {
+		return m[nCol];
 	}
 	/**
 	 * Przeciazony operator do wypisywania zawartosci macierzy

@@ -12,7 +12,9 @@ GLWidget::GLWidget(QWidget * parent = 0) : QOpenGLWidget(parent)
 	rotatex = 0.0;
 	rotatey = 0.0;
 }
-
+  // /////////////////////////////////////////////////////////////////////////////
+ // OVERLOADED METHODS //////////////// OVERLOADED METHODS //////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 void GLWidget::initializeGL() {
 	initializeOpenGLFunctions();
 	glEnable(GL_POINT_SPRITE);
@@ -38,35 +40,36 @@ void GLWidget::initializeGL() {
 }
 
 void GLWidget::paintGL() {
+	int margin = 30; // @TODO put it as constant class member
+	glViewport(margin, margin, this->width() - margin * 2, this->height() - margin * 2);
+	glScissor(margin, margin, this->width() - margin * 2, this->height() - margin * 2);
+	glEnable(GL_SCISSOR_TEST);
+
 	prepareData2D();
 	paintPlot2D();
+	drawZeroRule2D();
 }
 
 void GLWidget::resizeGL(int width, int height) {
 	glViewport(0,0, width, height);
 }
-
-//PRIVATE methods
-
+  // ////////////////////////////////////////////////////////////
+ //  PRIVATE methods  //////////////// PRIVATE METHODS /////////
+// ////////////////////////////////////////////////////////////
 void GLWidget::paintPlot2D() {
-	int margin = 30; // @TODO put it as constant class member
-	glViewport(margin, margin, this->width()-margin*2, this->height()-margin*2);
-	glScissor(margin ,margin , this->width()-margin*2, this->height() -margin*2);
-
-	glEnable(GL_SCISSOR_TEST);
 	// attributes to Vertex Shad
 	this->coord2d = program.attributeLocation("coord2d");
 	program.enableAttributeArray(coord2d);
 	program.setAttributeValue("coord2d", coord2d);
 	program.setUniformValue("offsetX", GLfloat(plotSize/2));
 	program.setUniformValue("scaleX", GLfloat(plotSize / 2));
-	program.setUniformValue("scaleY", GLfloat(1000.0));
+	program.setUniformValue("scaleY", GLfloat(1.0));
+	program.setUniformValue("offsetY", GLfloat(0.0));
 	// attributes to Fragment Shad
 	program.setUniformValueArray("f_color", PlotColor::RED, 1, 4);
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
 	glEnableVertexAttribArray(coord2d);
 	glVertexAttribPointer(
@@ -78,11 +81,7 @@ void GLWidget::paintPlot2D() {
 		0                    // use the vertex buffer object
 		);
 	glDrawArrays(GL_LINE_STRIP, 0, 100);
-
 	drawPoints2D();
-
-	// DRAWING AXIS and TICKS
-
 	// CLEANING
 	glDisableVertexAttribArray(coord2d);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -97,12 +96,35 @@ void GLWidget::prepareData2D() {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	plotSize = 100;
-	Point xplot[100];// = new Point[plotSize];
+	plot = new Point[plotSize];
+	int NCOL = 1;
 	for (int i = 0; i < plotSize; ++i) {
 		//float x = i;//(i-50)/50.0;
-		xplot[i].x = GLfloat(i);
-		xplot[i].y = (*mds)(3, i);
-		printf("%d: %f\n",i, (*mds)(3, i));
+		plot[i].x = i;
+		plot[i].y = mds->operator()(NCOL, i);
+		//printf("%d: %f\n",i, mds->operator()(NCOL, i));
 	}
-	glBufferData(GL_ARRAY_BUFFER, plotSize * sizeof Point, xplot, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, plotSize * sizeof Point, plot, GL_STATIC_DRAW);
+}
+
+void GLWidget::writeMatToFile(const char * fileName) {
+	std::fstream file;
+	file.open(fileName, std::ios::out);
+	file << (*mds);
+	file.close();
+}
+
+void GLWidget::drawZeroRule2D() {
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	Point zeroRule[2];
+	zeroRule[0].x = 0.0; zeroRule[0].y = 0.0;
+	zeroRule[1].x = 100.0; zeroRule[1].y = 0.0;
+	glBufferData(GL_ARRAY_BUFFER, 2 * sizeof Point, zeroRule, GL_STATIC_DRAW);
+	program.setUniformValueArray("f_color", PlotColor::BLACK, 1, 4);
+	this->coord2d = program.attributeLocation("coord2d");
+	program.enableAttributeArray(coord2d);
+	program.setAttributeValue("coord2d", coord2d);
+	glEnableVertexAttribArray(coord2d);
+	glVertexAttribPointer(coord2d,2, GL_FLOAT, GL_FALSE, 0, 0 );
+	glDrawArrays(GL_LINE_STRIP, 0, 2);
 }

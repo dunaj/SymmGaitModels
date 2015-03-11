@@ -36,7 +36,7 @@ std::ostream& operator<<(std::ostream& o, const Matrix &mat)
 	o.precision(7);
 	for (int i = 0; i<mat.nRow; ++i) {
 		for (int j = 0; j < mat.nCol; ++j ) {
-			o<<mat(i,j)<<"\t";
+			o<<mat(j,i)<<"\t";
 		}
 		o<<std::endl;
 	}

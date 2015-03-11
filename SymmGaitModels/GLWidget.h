@@ -6,11 +6,12 @@
 #include <qopenglwidget.h>
 #include <qopenglshaderprogram.h>
 #include <qopenglbuffer.h>
+#include <iostream>
+#include <fstream>
 
 #include "Engine\Matrix.h"
 #include "Engine\Consts.h"
 #include "PlotColor.h"
-#include <iostream>
 
 class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -60,20 +61,29 @@ private:
 	void drawPoints2D(float pSize = 4.0);
 
 	/**
+	 * Method drawing black zero rule
+	 */
+	void drawZeroRule2D();
+	/**
 	 * Method used for preparing data to 2D plot
 	 */
 	void prepareData2D();
 
+	/**
+	 * Writing matrix to file
+	 */
+	void writeMatToFile(const char * fileName);
 	const char *vertexShadSrc = // Vertex shader src
 		"uniform sampler2D texture; "
 		"attribute vec4 coord2d; \n"
 		"uniform float offsetX; \n"
 		"uniform float scaleX; \n"
-		"uniform float scaleY;"
+		"uniform float scaleY; \n"
+		"uniform float offsetY; \n"
 		"void main() \n"
 		"{\n"
 		" float x = (coord2d[0]-offsetX)/scaleX; \n "
-		" float y = coord2d[1] / scaleY; //texture2D(texture, vec2(x, coord2d[1])).r; \n "
+		" float y = (coord2d[1]-offsetY) / scaleY; //texture2D(texture, vec2(x, coord2d[1])).r; \n "
 		" gl_Position = vec4(x, y, 0.0, 1.0); \n"
 		"}\n";
 	const char *fragmentShadSrc = // Fragment Shader src
