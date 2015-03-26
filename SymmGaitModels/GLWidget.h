@@ -27,6 +27,11 @@ public:
 	 * @param coord - 1=x, 2=y, 3=z
 	 */
 	void setPaintedColumn(int markerNr, int coord);
+	/**
+	* Reading another matrix from file
+	* @param string filename - name of file from which the matrix is to be read
+	*/
+	void readMatrixFromFile(const char * fileName);
 protected:
 	struct Point;
 

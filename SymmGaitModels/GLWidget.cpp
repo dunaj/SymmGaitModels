@@ -24,6 +24,11 @@ GLWidget::GLWidget(QWidget * parent = 0) : QOpenGLWidget(parent)
 void GLWidget::setPaintedColumn(int markerNr, int coord) {
 	paintedColumn = (markerNr - 1) * 3 + (coord - 1);
 }
+
+void GLWidget::readMatrixFromFile(const char* fileName) {
+	delete mds;
+	mds = new Engine::Matrix(fileName, Engine::MDS_COL_NO, Engine::MDS_ROW_NO);
+}
   // /////////////////////////////////////////////////////////////////////////////
  // OVERLOADED METHODS //////////////// OVERLOADED METHODS //////////////////////
 // /////////////////////////////////////////////////////////////////////////////
@@ -185,3 +190,4 @@ void GLWidget::findScaleAndOffset() { // TODO add sample scale
 	}
 	printf("scale: %f \noffset: %f \n", scaleY, offsetY);
 }
+

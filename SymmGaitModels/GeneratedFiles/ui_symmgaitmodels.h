@@ -35,6 +35,9 @@ public:
     QRadioButton *XRadioButton;
     QRadioButton *YRadioButton;
     QRadioButton *ZRadioButton;
+    QPushButton *LoadMatrixButton;
+    QLabel *LoadedMatrixTitleLabel;
+    QLabel *LoadedMatrixNameLabel;
 
     void setupUi(QWidget *SymmGaitModelsClass)
     {
@@ -49,13 +52,18 @@ public:
         OpenGLWidget->setGeometry(QRect(160, 10, 560, 460));
         MarkerNrLineEdit = new QLineEdit(SymmGaitModelsClass);
         MarkerNrLineEdit->setObjectName(QStringLiteral("MarkerNrLineEdit"));
-        MarkerNrLineEdit->setGeometry(QRect(10, 30, 111, 20));
+        MarkerNrLineEdit->setGeometry(QRect(10, 130, 121, 20));
         MarkerLabel = new QLabel(SymmGaitModelsClass);
         MarkerLabel->setObjectName(QStringLiteral("MarkerLabel"));
-        MarkerLabel->setGeometry(QRect(10, 10, 111, 20));
+        MarkerLabel->setGeometry(QRect(10, 110, 131, 20));
+        QFont font;
+        font.setBold(true);
+        font.setWeight(75);
+        MarkerLabel->setFont(font);
         CoordRadioGroupBox = new QGroupBox(SymmGaitModelsClass);
         CoordRadioGroupBox->setObjectName(QStringLiteral("CoordRadioGroupBox"));
-        CoordRadioGroupBox->setGeometry(QRect(10, 60, 121, 61));
+        CoordRadioGroupBox->setGeometry(QRect(10, 160, 121, 51));
+        CoordRadioGroupBox->setFont(font);
         XRadioButton = new QRadioButton(CoordRadioGroupBox);
         XRadioButton->setObjectName(QStringLiteral("XRadioButton"));
         XRadioButton->setGeometry(QRect(10, 20, 31, 17));
@@ -65,6 +73,17 @@ public:
         ZRadioButton = new QRadioButton(CoordRadioGroupBox);
         ZRadioButton->setObjectName(QStringLiteral("ZRadioButton"));
         ZRadioButton->setGeometry(QRect(90, 20, 31, 17));
+        LoadMatrixButton = new QPushButton(SymmGaitModelsClass);
+        LoadMatrixButton->setObjectName(QStringLiteral("LoadMatrixButton"));
+        LoadMatrixButton->setGeometry(QRect(10, 80, 121, 21));
+        LoadedMatrixTitleLabel = new QLabel(SymmGaitModelsClass);
+        LoadedMatrixTitleLabel->setObjectName(QStringLiteral("LoadedMatrixTitleLabel"));
+        LoadedMatrixTitleLabel->setGeometry(QRect(10, 10, 91, 16));
+        LoadedMatrixTitleLabel->setFont(font);
+        LoadedMatrixNameLabel = new QLabel(SymmGaitModelsClass);
+        LoadedMatrixNameLabel->setObjectName(QStringLiteral("LoadedMatrixNameLabel"));
+        LoadedMatrixNameLabel->setGeometry(QRect(10, 30, 131, 41));
+        LoadedMatrixNameLabel->setWordWrap(true);
 
         retranslateUi(SymmGaitModelsClass);
 
@@ -80,6 +99,9 @@ public:
         XRadioButton->setText(QApplication::translate("SymmGaitModelsClass", "X", 0));
         YRadioButton->setText(QApplication::translate("SymmGaitModelsClass", "Y", 0));
         ZRadioButton->setText(QApplication::translate("SymmGaitModelsClass", "Z", 0));
+        LoadMatrixButton->setText(QApplication::translate("SymmGaitModelsClass", "Load Another Matrix", 0));
+        LoadedMatrixTitleLabel->setText(QApplication::translate("SymmGaitModelsClass", "Loaded Matrix:", 0));
+        LoadedMatrixNameLabel->setText(QApplication::translate("SymmGaitModelsClass", "TextLabel", 0));
     } // retranslateUi
 
 };

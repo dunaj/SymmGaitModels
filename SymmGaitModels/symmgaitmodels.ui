@@ -40,8 +40,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>30</y>
-     <width>111</width>
+     <y>130</y>
+     <width>121</width>
      <height>20</height>
     </rect>
    </property>
@@ -50,10 +50,16 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
-     <width>111</width>
+     <y>110</y>
+     <width>131</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="text">
     <string>Marker Number (1-26)</string>
@@ -63,10 +69,16 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>60</y>
+     <y>160</y>
      <width>121</width>
-     <height>61</height>
+     <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="title">
     <string>Coordinate</string>
@@ -110,6 +122,54 @@
      <string>Z</string>
     </property>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="LoadMatrixButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>121</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Load Another Matrix</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LoadedMatrixTitleLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Loaded Matrix:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LoadedMatrixNameLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>30</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
